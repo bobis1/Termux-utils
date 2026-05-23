@@ -1,0 +1,2 @@
+
+bash /data/data/com.termux/files/home/storage/documents/github/termux-utils/start.sh
