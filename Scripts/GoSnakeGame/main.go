@@ -3,15 +3,18 @@ package main
 import (
 	"fmt"
 	"os"
-
+ // "math/rand/v2"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 
 var rows int = 5
 var collums int = 16
-
-
+var score = 0
+var maxRow = 4
+var maxCollums = 15
+var FoodR int = 3
+var FoodC int = 9
 type model struct {
 	x int
 	y int
@@ -34,10 +37,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		  m.y=0
 		}
 		case "down":
-		if m.y < rows{
+		if m.y < maxRow{
 		  m.y++
 		} else{
-		  m.y = rows
+		  m.y = maxRow
 		}
 		case "left":
 		if m.x > 0{
@@ -46,10 +49,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		  m.x = 0
 		}
 		case "right":
-		if m.x < collums{
+		if m.x < maxCollums{
 			m.x++
 		} else {
-		  m.x = collums
+		  m.x = maxCollums
 		}
 	}
 	}
@@ -62,17 +65,28 @@ func (m model) View() string {
 	
 	for y := 0; y < rows; y++ {
 		for x := 0; x < collums; x++ {
-			if m.x == x && m.y == y {
+		  if FoodR == y && FoodC == x{
+		    board += "!"
+		  } else if m.x == x && m.y == y {
 				board += "█"
-			} else {
-				board += "."
+			} else if FoodR == y && FoodC == x && m.x == x && m.y == y {
+		  score++
+		  board += "█"
+			} else{
+			  board += "."
 			}
 		}
 		board += "\n"
 	}
 
-	board += fmt.Sprintf("X: %d, Y: %d | Press 'q' to quit", m.x, m.y)
+	board += fmt.Sprintf("X: %d, Y: %d  Score: %d | Press 'q' to quit", m.x, m.y, score)
 	return board
+}
+
+func eaten(x int, y int, m model){
+    if m.x == x && m.y == y{
+      score++
+    }
 }
 
 func main() {
