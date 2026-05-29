@@ -1,0 +1,2 @@
+5.27.2026
+today I did some work on the snake game I got the food working for it. the main issue is that the logic for detrxting when the snske is hover8ng over the food. the next steps are to finish uo the sbake game. 
