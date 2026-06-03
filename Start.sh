@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 date
 echo "---------Readying System---------"
-scriptsOpts=("CleanDownloads" "PhoneStats" "Snake")
+scriptsOpts=("CleanDownloads.sh" "PhoneStats.sh" "Snake.sh" "ResourceManagement.sh")
 
 run() {
   local script=$1
   local workingDir=$(pwd)/Scripts
-  bash $workingDir/$script.sh|| echo "no script found"
+  bash $workingDir/$script|| echo "no script found"
   
 }
 

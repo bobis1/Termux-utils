@@ -11,10 +11,12 @@ import (
 var rows int = 5
 var collums int = 16
 var score = 0
+var length = 1
 var maxRow = 4
 var maxCollums = 15
 var FoodR int = 3
 var FoodC int = 9
+var GameOver bool = false
 
 type position struct {
 	x int
@@ -37,6 +39,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.String() {
 		case "ctrl+c", "q", "esc":
 			return m, tea.Quit
+		case "r", "R":
+		  GameOver = false
+		  score = 0
+		  var newPos = position {
+		  x: 7,
+		  y: 2,
+		  }
+		  m.body = append([]position{newPos}, m.body...)
 		case "up":
 		if m.body[0].y > 0{
 var newPos = position {
@@ -45,11 +55,7 @@ var newPos = position {
 		  }
 		  m.body = append([]position{newPos}, m.body...)
 		} else{
-	var newPos = position {
-		  x: m.body[0].x,
-		  y: 0,
-		  }
-		  m.body = append([]position{newPos}, m.body...)
+	  GameOver = true
 		}
 		case "down":
 		if m.body[0].y < maxRow{
@@ -59,11 +65,7 @@ var newPos = position {
 		  }
 		  m.body = append([]position{newPos}, m.body...)
 		} else{
-      var newPos = position {
-		  x: m.body[0].x,
-		  y: maxRow,
-		  }
-		  m.body = append([]position{newPos}, m.body...)
+      GameOver = true
 		}
 		case "left":
 		if m.body[0].x > 0{
@@ -73,11 +75,7 @@ var newPos = position {
 		  }
 		  m.body = append([]position{newPos}, m.body...)
 		} else {
-		  var newPos = position {
-		  x: m.body[0].x,
-		  y: 0,
-		  }
-		  m.body = append([]position{newPos}, m.body...)
+		  GameOver = true
 		}
 		case "right":
 		if m.body[0].x < maxCollums{
@@ -87,20 +85,17 @@ var newPos = position {
 		  }
 		  m.body = append([]position{newPos}, m.body...)
 		} else {
-		  var newPos = position{
-		  x: maxCollums,
-		  y: m.body[0].y,
-		}
-		m.body = append([]position{newPos}, m.body...)
-		
+		  GameOver = true
 		}
 	}
-	if FoodC == m.body[0].x && FoodR == m.body[0].y {
+	
+	if FoodC == m.body[0].x && FoodR == m.body[0].y{
 				  score++
+				  length++
 				  FoodC = rand.IntN(maxCollums)
 				  FoodR = rand.IntN(maxRow)
 	
-	} else {
+	} else if !GameOver && length >= 1{
 	  m.body = m.body[:len(m.body)-1]
 	}
 	}
@@ -122,8 +117,9 @@ func (m model) View() string {
 					isSnakeHere = true
 				}
 			}
-
-
+      if GameOver {
+        board += "GAME OVER HIT 'R' to RESTART"
+      }
 			if isSnakeHere {
 				board += "█"
 			} else if FoodC == x && FoodR == y {
