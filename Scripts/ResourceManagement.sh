@@ -42,4 +42,4 @@
 
 
 cd Scripts/GoResourceManagement
-go run main.go
+./Resources
