@@ -11,7 +11,8 @@ audioFolder="/data/data/com.termux/files/home/storage/music"
 imgExt=(".png" ".jpg" ".jpeg" ".gif")
 vidExt=(".mov" ".mp4")
 audExt=(".mp3" ".opus")
-DownloadFolder
+
+#DownloadFolder
 if [ ! -d "$DownloadFolder" ]; then
   exit 1
 fi
@@ -20,15 +21,15 @@ fi
 for file in "$DownloadFolder"/*; do
   if [ -f "$file" ]; then
     echo "$file"
-    if [[ $file =~ $imgExt$]]; then
+    if [[ $file =~ $imgExt$ ]]; then
       cp $file $PictureFolder
       rm $file
     fi
-    if [[ $file =~ $vidExt$]]; then
+    if [[ $file =~ $vidExt$ ]]; then
       cp $file $videosfolder
       rm $file
     fi
-    if [[ $file =~ $audExt$]]; then
+    if [[ $file =~ $audExt$ ]]; then
       cp $file $audfolder
       rm $file
     fi
