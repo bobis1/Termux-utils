@@ -6,3 +6,4 @@ The first thing that you need to do to use this collection is you need to is to 
 In addition the CleanDownload function may not work if you did not setup termux storage
 ## why I made this
 I got bored on my phone and decided that making something like this would be a better use of my time.
+demo video [here](Demo.mp4)
