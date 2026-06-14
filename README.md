@@ -7,3 +7,5 @@ In addition the CleanDownload function may not work if you did not setup termux 
 ## why I made this
 I got bored on my phone and decided that making something like this would be a better use of my time.
 demo video [here](Demo.mp4)
+
+I used AI to go over some of the bash syntax
